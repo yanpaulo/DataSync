@@ -15,7 +15,7 @@ namespace DataSync
             _typeProviders = typeProviders;
         }
 
-        public async Task SyncAsync<T>(SyncMode mode)
+        public async Task SyncAsync<T>(SyncMode mode) where T : new()
         {
             var t = typeof(T);
             var key = _typeProviders.Keys
