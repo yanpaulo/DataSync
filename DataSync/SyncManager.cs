@@ -8,21 +8,21 @@ namespace DataSync
 {
     public class SyncManager
     {
-        internal Dictionary<Type, TypeProvider> TypeProviders;
+        private Dictionary<Type, TypeProvider> _typeProviders;
 
         internal SyncManager(Dictionary<Type, TypeProvider> typeProviders)
         {
-            TypeProviders = typeProviders;
+            _typeProviders = typeProviders;
         }
 
         public async Task SyncAsync<T>(SyncMode mode)
         {
             var t = typeof(T);
-            var key = TypeProviders.Keys
+            var key = _typeProviders.Keys
                 .Where(c => c.IsAssignableFrom(t))
                 .OrderBy(c => Depth(t, c))
                 .First();
-            var config = TypeProviders[key];
+            var config = _typeProviders[key];
             
             switch (mode)
             {
