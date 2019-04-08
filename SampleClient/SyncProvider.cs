@@ -37,7 +37,7 @@ namespace SampleClient
             Connection = new SQLiteConnection("data.db");
             Connection.CreateTable<Contact>();
         }
-
+        
         public async Task PullAsync<T>() where T : EntityBase, new()
         {
             var modified = Connection.Table<T>().OrderByDescending(e => e.Modified).FirstOrDefault()?.Modified;

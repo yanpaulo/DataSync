@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -7,39 +8,57 @@ namespace DataSync
 {
     public class SyncManager
     {
-        private readonly ISyncProvider _provider;
+        internal Dictionary<Type, TypeProvider> TypeProviders;
 
-        public SyncManager(ISyncProvider provider)
+        internal SyncManager(Dictionary<Type, TypeProvider> typeProviders)
         {
-            _provider = provider;
+            TypeProviders = typeProviders;
         }
 
-        public async Task SyncAsync<T, U>(SyncMode mode) where T : U, new()
+        public async Task SyncAsync<T>(SyncMode mode)
         {
-            var provider = (ISyncProvider<U>)_provider;
-
+            var t = typeof(T);
+            var key = TypeProviders.Keys
+                .Where(c => c.IsAssignableFrom(t))
+                .OrderBy(c => Depth(t, c))
+                .First();
+            var config = TypeProviders[key];
+            
             switch (mode)
             {
                 case SyncMode.Pull:
-                    await provider.PullAsync<T>();
+                    await config.Pull<T>();
                     break;
                 case SyncMode.Push:
-                    await provider.PutAsync<T>();
-                    await provider.PushAsync<T>();
+                    await config.Put<T>();
+                    await config.Push<T>();
                     break;
                 case SyncMode.RemoteWins:
-                    await provider.PullAsync<T>();
-                    await provider.PutAsync<T>();
-                    await provider.PushAsync<T>();
+                    await config.Pull<T>();
+                    await config.Put<T>();
+                    await config.Push<T>();
                     break;
                 case SyncMode.LocalWins:
-                    await provider.PutAsync<T>();
-                    await provider.PullAsync<T>();
-                    await provider.PushAsync<T>();
+                    await config.Put<T>();
+                    await config.Pull<T>();
+                    await config.Push<T>();
                     break;
                 default:
                     break;
             }
+        }
+
+
+        private int Depth<T, U>(int depth = 0) =>
+            Depth(typeof(T), typeof(U));
+
+        private int Depth(Type t, Type u, int depth = 0)
+        {
+            if (t == u)
+            {
+                return depth;
+            }
+            return depth + Depth(t.BaseType, u);
         }
     }
 }

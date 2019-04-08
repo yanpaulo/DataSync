@@ -11,6 +11,7 @@ namespace SampleServer.Data
     {
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
+            
         }
 
         public DbSet<Contact> Contacts { get; set; }

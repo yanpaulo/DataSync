@@ -10,8 +10,14 @@ namespace SampleClient
         static async Task Main(string[] args)
         {
             var provider = new SyncProvider();
-            var manager = new SyncManager(provider);
             provider.Init();
+
+            var builder = new SyncManagerBuilder();
+            builder
+                .Type<EntityBase>()
+                .SyncWith(provider);
+
+            var manager = builder.Build();
 
             var sql = provider.Connection;
 
@@ -22,12 +28,12 @@ namespace SampleClient
             //};
             //sql.Insert(contact);
 
-            var contact = sql.Table<Contact>().First();
-            contact.Name = "YansCorp";
-            contact.Status = EntityStatus.Modified;
-            sql.Update(contact);
+            //var contact = sql.Table<Contact>().First();
+            //contact.Name = "YansCorp";
+            //contact.Status = EntityStatus.Modified;
+            //sql.Update(contact);
 
-            await manager.SyncAsync<Contact, EntityBase>(SyncMode.RemoteWins);
+            await manager.SyncAsync<Contact>(SyncMode.RemoteWins);
 
         }
     }

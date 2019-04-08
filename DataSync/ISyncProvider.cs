@@ -2,14 +2,22 @@
 
 namespace DataSync
 {
-    public interface ISyncProvider<U> : ISyncProvider
+    internal interface ISyncProvider : ISyncProvider<object> { }
+
+    public interface ISyncProvider<U> : IPullProvider<U>, IPushProvider<U>, IPutProvider<U> { }
+
+    public interface IPullProvider<U>
     {
         Task PullAsync<T>() where T : U, new();
-        Task PushAsync<T>() where T : U, new();
-        Task PutAsync<T>() where T : U, new();
     }
 
-    public interface ISyncProvider
+    public interface IPushProvider<U>
     {
+        Task PushAsync<T>() where T : U, new();
+    }
+
+    public interface IPutProvider<U>
+    {
+        Task PutAsync<T>() where T : U, new();
     }
 }
