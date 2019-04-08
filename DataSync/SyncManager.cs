@@ -21,7 +21,9 @@ namespace DataSync
             var key = _typeProviders.Keys
                 .Where(c => c.IsAssignableFrom(t))
                 .OrderBy(c => Depth(t, c))
-                .First();
+                .FirstOrDefault() 
+                ?? throw new InvalidOperationException($"No provider was found for type {typeof(T)}");
+
             var config = _typeProviders[key];
             
             switch (mode)
