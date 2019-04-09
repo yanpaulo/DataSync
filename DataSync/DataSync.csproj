@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>Yansoft.DataSync</RootNamespace>
-    <Version>0.1.0</Version>
+    <Version>0.1.0-alpha</Version>
     <Company>Yansoft</Company>
     <PackageProjectUrl>https://github.com/yanpaulo/DataSync</PackageProjectUrl>
     <RepositoryUrl>https://github.com/yanpaulo/DataSync</RepositoryUrl>
