@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DataSync
+namespace Yansoft.DataSync
 {
     public class TypeConfiguration<U> : TypeConfiguration
     {

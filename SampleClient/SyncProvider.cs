@@ -1,4 +1,4 @@
-﻿using DataSync;
+﻿using Yansoft.DataSync;
 using Newtonsoft.Json;
 using SQLite;
 using System;

@@ -1,4 +1,4 @@
-﻿namespace DataSync
+﻿namespace Yansoft.DataSync
 {
     public enum SyncMode
     {

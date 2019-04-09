@@ -2,6 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>Yansoft.DataSync</RootNamespace>
+    <Version>0.1.0</Version>
+    <Company>Yansoft</Company>
+    <PackageProjectUrl>https://github.com/yanpaulo/DataSync</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/yanpaulo/DataSync</RepositoryUrl>
+    <PackageTags>data;sync;database</PackageTags>
   </PropertyGroup>
 
 </Project>

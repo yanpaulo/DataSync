@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace DataSync
+namespace Yansoft.DataSync
 {
     internal interface ISyncProvider : ISyncProvider<object> { }
 

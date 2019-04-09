@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataSync
+namespace Yansoft.DataSync
 {
     public class SyncManager
     {

@@ -1,7 +1,7 @@
-﻿using DataSync;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Yansoft.DataSync;
 
 namespace SampleClient
 {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DataSync
+namespace Yansoft.DataSync
 {
     public class SyncManagerBuilder
     {
