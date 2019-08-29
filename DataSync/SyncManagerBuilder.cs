@@ -8,7 +8,7 @@ namespace Yansoft.DataSync
     {
         private Dictionary<Type, TypeConfiguration> typeConfigurations = new Dictionary<Type, TypeConfiguration>();
 
-        public TypeConfiguration<T> Type<T>() where T : new()
+        public TypeConfiguration<T> Sync<T>()
         {
             var t = typeof(T);
             TypeConfiguration<T> config;
@@ -25,6 +25,13 @@ namespace Yansoft.DataSync
 
         public SyncManager Build()
         {
+            var invalidItems = typeConfigurations.Where(t => t.Value.TypeProvider.SyncProvider == null);
+            if (invalidItems.Any())
+            {
+                var item = invalidItems.First();
+                var message = $"There isn't any {nameof(ISyncProvider)} registered for type {item.Key}. Register an {nameof(ISyncProvider)} by chaining a {nameof(TypeConfiguration<object>.With)} method call with the {nameof(Sync)} method call.";
+                throw new InvalidOperationException(message);
+            }
             var providers = typeConfigurations.ToDictionary(c => c.Key, c => c.Value.TypeProvider);
             return new SyncManager(providers);
         }

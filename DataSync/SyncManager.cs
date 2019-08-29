@@ -51,16 +51,16 @@ namespace Yansoft.DataSync
         }
 
 
-        private int Depth<T, U>(int depth = 0) =>
-            Depth(typeof(T), typeof(U));
+        private int Depth<U, V>(int depth = 0) =>
+            Depth(typeof(U), typeof(V));
 
-        private int Depth(Type t, Type u, int depth = 0)
+        private int Depth(Type u, Type v, int depth = 0)
         {
-            if (t == u)
+            if (u == v)
             {
                 return depth;
             }
-            return depth + Depth(t.BaseType, u);
+            return u.BaseType != null ? Depth(u.BaseType, v, depth + 1) : int.MaxValue;
         }
     }
 }

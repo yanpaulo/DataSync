@@ -5,9 +5,15 @@ namespace Yansoft.DataSync
 {
     public class TypeConfiguration<U> : TypeConfiguration
     {
-        public TypeConfiguration<U> SyncWith(ISyncProvider<U> provider)
+        public TypeConfiguration<U> With(ISyncProvider<U> provider)
         {
             TypeProvider.SyncProvider = provider;
+            return this;
+        }
+
+        public TypeConfiguration<U> With<T>() where T : ISyncProvider<U>, new()
+        {
+            TypeProvider.SyncProvider = Activator.CreateInstance<T>();
             return this;
         }
     }

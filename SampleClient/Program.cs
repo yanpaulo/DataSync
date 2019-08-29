@@ -14,8 +14,8 @@ namespace SampleClient
 
             var builder = new SyncManagerBuilder();
             builder
-                .Type<EntityBase>()
-                .SyncWith(provider);
+                .Sync<EntityBase>()
+                .With(provider);
 
             var manager = builder.Build();
 
